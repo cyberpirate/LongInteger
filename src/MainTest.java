@@ -1,11 +1,20 @@
 
 public class MainTest {
 
+	static int[] testValues = new int[] {0, 1, 2, 3};
+	
 	public static void main(String[] args) {
 		
-		int[] testValues = new int[] {0, 1, 2, 3};
-		
-		//DLL TEST
+//		testDLL();
+//		System.out.println();
+//		
+//		testUtilityOperations();
+//		System.out.println();
+
+		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
+	}
+
+	public static void testDLL() {
 		DLLProjectList dll = new DLLProjectList();
 		DLLProjectList dll1 = new DLLProjectList();
 		DLLProjectList dll2 = new DLLProjectList(testValues);
@@ -24,17 +33,34 @@ public class MainTest {
 		System.out.println("dll1:\t" + dll1.toString());
 		System.out.println("dll2:\t" + dll2.toString());
 		System.out.println("length: " + testValues.length + " " + dll.size() + " " + dll1.size() + " " + dll2.size());
-		System.out.println();
-		
-		
-		//UtilityOperations TEST
+		System.out.println(dll.isFirst(dll.first()));
+		System.out.println(!dll.isLast(dll.first()));
+		System.out.println(!dll.isFirst(dll.last()));
+		System.out.println(dll.isLast(dll.last()));
+	}
+	
+	public static void testUtilityOperations() {
+		System.out.println("UtilityOperations Test:");
 		System.out.println("overflow(100010099): " + UtilityOperations.overflow(100010099));
 		System.out.println("underflow(100010099): " + UtilityOperations.underflow(100010099));
 		System.out.println("upperHalf(12345678): " + UtilityOperations.upperHalf(12345678));
 		System.out.println("lowerHalf(12345678): " + UtilityOperations.lowerHalf(12345678));
 		System.out.println("digits(1234): " + UtilityOperations.digits(1234));
 	}
-
+	
+	public static void testLongInteger(String greater, String less) {
+		LongInteger lig = new LongInteger(greater);
+		LongInteger lil = new LongInteger(less);
+		
+		System.out.println(greater);
+		lig.output();
+		
+		System.out.println("isNegative: " + lig.getSign());
+		System.out.println(greater.length() + "\n" + lig.getDigitCount());
+		System.out.println(!lig.equalTo(lil));
+		System.out.println(!lig.lessThan(lil));
+		System.out.println(lig.greaterThan(lil));
+	}
 	
 	public static String arrToStr(int... values) {
 		StringBuilder sb = new StringBuilder();
