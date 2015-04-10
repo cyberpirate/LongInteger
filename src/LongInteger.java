@@ -193,7 +193,7 @@ public class LongInteger {
         	sb.append(String.format("%08d", p.getValue()));
         	p = list.after(p);
         }
-        sb.append(p.getValue());
+        sb.append(String.format("%08d", p.getValue()));
         
         return sb.toString();
     }
