@@ -86,8 +86,20 @@ public class LongInteger {
         
         if(tn == in) {
         	if(tn == 0) return false;
-        	tn = list.first().getValue();
-        	in = i.list.first().getValue();
+        	
+        	Position tp = list.first();
+        	Position ip = i.list.first();
+        	
+        	while(true) {
+            	tn = tp.getValue();
+            	in = ip.getValue();
+            	
+            	if(tn == in) {
+            		tp = list.after(tp);
+            		ip = i.list.after(ip);
+            		continue;
+            	}
+        	}
         }
         
         return tn < in;
@@ -103,8 +115,20 @@ public class LongInteger {
         
         if(tn == in) {
         	if(tn == 0) return false;
-        	tn = list.first().getValue();
-        	in = i.list.first().getValue();
+        	
+        	Position tp = list.first();
+        	Position ip = i.list.first();
+        	
+        	while(true) {
+            	tn = tp.getValue();
+            	in = ip.getValue();
+            	
+            	if(tn == in) {
+            		tp = list.after(tp);
+            		ip = i.list.after(ip);
+            		continue;
+            	}
+        	}
         }
         
         return tn > in;
