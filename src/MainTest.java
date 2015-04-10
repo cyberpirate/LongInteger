@@ -11,7 +11,9 @@ public class MainTest {
 //		testUtilityOperations();
 //		System.out.println();
 
-		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
+//		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
+		
+		testAdd();
 	}
 
 	public static void testDLL() {
@@ -60,6 +62,17 @@ public class MainTest {
 		System.out.println(!lig.equalTo(lil));
 		System.out.println(!lig.lessThan(lil));
 		System.out.println(lig.greaterThan(lil));
+	}
+	
+	public static void testAdd() {
+		LongInteger li1, li2;
+		
+		li1 = new LongInteger("-999999999999999999999999999999999999999999999999");
+//		li1 = new LongInteger("99999999");
+		li2 = new LongInteger("-1");
+		
+		li1.output();
+		li1.add(li2).output();
 	}
 	
 	public static String arrToStr(int... values) {

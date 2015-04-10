@@ -24,7 +24,11 @@ public class LongInteger {
     		list.insertFirst(value);
     	}
     }
-	    
+
+    public LongInteger() {
+    	
+    }
+    
     /**
      * Prints the Long Integer to standard output in format: [-?][1-9][0-9]*
      */
@@ -134,14 +138,61 @@ public class LongInteger {
         return tn > in;
     }
     
-//    /**
-//     * Adds the Long Integer to Long Integer i and returns the result as a new Long Integer. Must be implemented separately from subtract, but add and subtract can call each other when necessary.
-//     * @param i
-//     * @return
-//     */
-//    public LongInteger add(LongInteger i) {
-//        
-//    }
+    /**
+     * Adds the Long Integer to Long Integer i and returns the result as a new Long Integer. Must be implemented separately from subtract, but add and subtract can call each other when necessary.
+     * @param i
+     * @return
+     */
+    public LongInteger add(LongInteger i) {
+        
+    	LongInteger ng = this, nl = i, ret = new LongInteger();
+    	
+    	if(ng.getDigitCount() < nl.getDigitCount()) {
+    		LongInteger tmp = nl;
+    		nl = ng;
+    		ng = tmp;
+    	}
+    	
+    	int overflow = 0;
+    	int sum = 0;
+    	Position pg = ng.list.last();
+    	Position pl = nl.list.last();
+    	
+    	while(!nl.list.isFirst(pl)) {
+    		sum = pg.getValue() + pl.getValue() + overflow;
+    		overflow = UtilityOperations.overflow(sum);
+    		ret.list.insertFirst(UtilityOperations.underflow(sum));
+    		pg = ng.list.before(pg);
+    		pl = nl.list.before(pl);
+    	}
+    	
+		sum = pg.getValue() + pl.getValue() + overflow;
+		overflow = UtilityOperations.overflow(sum);
+		ret.list.insertFirst(UtilityOperations.underflow(sum));
+		
+	    if(!ng.list.isFirst(pg)) {
+			pg = ng.list.before(pg);
+	    	
+	    	while(!ng.list.isFirst(pg)) {
+	    		sum = pg.getValue() + overflow;
+	    		overflow = UtilityOperations.overflow(sum);
+	    		ret.list.insertFirst(UtilityOperations.underflow(sum));
+	    		pg = ng.list.before(pg);
+	    	}
+	    	
+			sum = pg.getValue() + overflow;
+			overflow = UtilityOperations.overflow(sum);
+			ret.list.insertFirst(UtilityOperations.underflow(sum));
+    	}
+    	
+		if(overflow != 0) {
+			ret.list.insertFirst(overflow);
+		}
+		
+		ret.isNegative = this.isNegative;
+		
+    	return ret;
+    }
 //    
 //    /**
 //     * Subtracts the Long Integer i from the Long Integer and returns the result as a new Long Integer. Must be implemented separately from add, but add and subtract can call each other when necessary.
