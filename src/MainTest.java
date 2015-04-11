@@ -14,9 +14,9 @@ public class MainTest {
 //		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
 		
 //		testAdd();
-//		testSub();
+		testSub();
 //		testKarat();
-		testMult();
+//		testMult();
 	}
 
 	public static void testDLL() {
@@ -70,7 +70,7 @@ public class MainTest {
 	public static void testAdd() {
 		LongInteger li1, li2;
 		
-		li1 = new LongInteger("-100000000");
+		li1 = new LongInteger("1000000");
 //		li1 = new LongInteger("99999999");
 		li2 = new LongInteger("-1");
 		
@@ -83,7 +83,7 @@ public class MainTest {
 		li1 = new LongInteger("-1");
 		li2 = new LongInteger("100000000");
 		
-		li1.subtract(li2).output();
+		li1.subtract(li1).output();
 	}
 	
 	public static String arrToStr(int... values) {

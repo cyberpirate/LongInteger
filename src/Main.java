@@ -74,11 +74,21 @@ public class Main {
 		
 		System.out.println();
 		
-		for(int i = 0; i < li.length-1; i++) {
-			for(int j = i+1; j < li.length; j++) {
+		for(int i = 0; i < H; i++) {
+			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " = " + intToChar(j) + ": " + li[i].equals(li[j]));
 				System.out.println(intToChar(i) + " < " + intToChar(j) + ": " + li[i].lessThan(li[j]));
 				System.out.println(intToChar(i) + " > " + intToChar(j) + ": " + li[i].greaterThan(li[j]));
+			}
+		}
+		
+		System.out.println();
+		
+		for(int i = 0; i < H; i++) {
+			for(int j = 0; j < H+1; j++) {
+				System.out.println(intToChar(i) + " + " + intToChar(j) + ": " + li[i].add(li[j]));
+				System.out.println(intToChar(i) + " - " + intToChar(j) + ": " + li[i].subtract(li[j]));
+				System.out.println(intToChar(i) + " * " + intToChar(j) + ": " + li[i].multiply(li[j]));
 			}
 		}
 	}

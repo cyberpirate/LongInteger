@@ -96,15 +96,15 @@ public class LongInteger {
         	Position tp = list.first();
         	Position ip = i.list.first();
         	
-        	while(true) {
+        	tn = tp.getValue();
+        	in = ip.getValue();
+        	
+        	while(tn == in && (!list.isLast(tp) && !i.list.isLast(ip))) {
+        		tp = list.after(tp);
+        		ip = i.list.after(ip);
+        		
             	tn = tp.getValue();
             	in = ip.getValue();
-            	
-            	if(tn == in) {
-            		tp = list.after(tp);
-            		ip = i.list.after(ip);
-            		continue;
-            	}
         	}
         }
         
@@ -125,15 +125,15 @@ public class LongInteger {
         	Position tp = list.first();
         	Position ip = i.list.first();
         	
-        	while(true) {
+        	tn = tp.getValue();
+        	in = ip.getValue();
+        	
+        	while(tn == in && (!list.isLast(tp) && !i.list.isLast(ip))) {
+        		tp = list.after(tp);
+        		ip = i.list.after(ip);
+        		
             	tn = tp.getValue();
             	in = ip.getValue();
-            	
-            	if(tn == in) {
-            		tp = list.after(tp);
-            		ip = i.list.after(ip);
-            		continue;
-            	}
         	}
         }
         
@@ -150,15 +150,15 @@ public class LongInteger {
         	Position tp = list.first();
         	Position ip = i.list.first();
         	
-        	while(true) {
+        	tn = tp.getValue();
+        	in = ip.getValue();
+        	
+        	while(tn == in && (!list.isLast(tp) && !i.list.isLast(ip))) {
+        		tp = list.after(tp);
+        		ip = i.list.after(ip);
+        		
             	tn = tp.getValue();
             	in = ip.getValue();
-            	
-            	if(tn == in) {
-            		tp = list.after(tp);
-            		ip = i.list.after(ip);
-            		continue;
-            	}
         	}
         }
         
