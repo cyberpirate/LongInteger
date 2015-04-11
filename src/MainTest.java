@@ -13,7 +13,8 @@ public class MainTest {
 
 //		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
 		
-		testAdd();
+//		testAdd();
+		testSub();
 	}
 
 	public static void testDLL() {
@@ -73,6 +74,15 @@ public class MainTest {
 		
 		li1.output();
 		li1.add(li2).output();
+	}
+	
+	public static void testSub() {
+		LongInteger li1, li2;
+		
+		li1 = new LongInteger("1000000001");
+		li2 = new LongInteger("1");
+		
+		li1.subtract(li2).output();
 	}
 	
 	public static String arrToStr(int... values) {

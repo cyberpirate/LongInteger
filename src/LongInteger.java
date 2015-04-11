@@ -1,3 +1,5 @@
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class LongInteger {
     
 	// DO NOT CHANGE OR REMOVE THIS LINE (UNTIL STEP 3)
@@ -145,7 +147,15 @@ public class LongInteger {
      */
     public LongInteger add(LongInteger i) {
         
-    	LongInteger ng = this, nl = i, ret = new LongInteger();
+    	if(this.isNegative == i.isNegative)
+    		return addSameSign(this, i);
+    	
+    	throw new NotImplementedException();
+
+    }
+    
+    private static LongInteger addSameSign(LongInteger ng, LongInteger nl) {
+    	LongInteger ret = new LongInteger();
     	
     	if(ng.getDigitCount() < nl.getDigitCount()) {
     		LongInteger tmp = nl;
@@ -189,19 +199,103 @@ public class LongInteger {
 			ret.list.insertFirst(overflow);
 		}
 		
-		ret.isNegative = this.isNegative;
+		ret.isNegative = ng.isNegative;
 		
     	return ret;
     }
-//    
-//    /**
-//     * Subtracts the Long Integer i from the Long Integer and returns the result as a new Long Integer. Must be implemented separately from add, but add and subtract can call each other when necessary.
-//     * @param i
-//     * @return
-//     */
-//    public LongInteger subtract(LongInteger i) {
-//        
-//    }
+    
+    /**
+     * Subtracts the Long Integer i from the Long Integer and returns the result as a new Long Integer. Must be implemented separately from add, but add and subtract can call each other when necessary.
+     * @param i
+     * @return
+     */
+    public LongInteger subtract(LongInteger i) {
+        return subGreaterFromLess(this, i);
+    }
+    
+    private static LongInteger subGreaterFromLess(LongInteger ng, LongInteger nl) {
+    	
+    	int n = 0;
+    	int[] retData = new int[ng.list.size()];
+    	
+    	
+    	Position pg = ng.list.last();
+    	Position pl = nl.list.last();
+    	int carry = 0, vg, vl;
+    	
+    	while(!nl.list.isFirst(pl)) {
+    		
+    		vg = pg.getValue() + carry;
+    		vl = pl.getValue();
+    		
+    		if(vg < vl) {
+    			carry = -1;
+    			vg += 100000000;
+    		} else {
+    			carry = 0;
+    		}
+    		
+    		retData[n++] = vg - vl;
+    		pg = ng.list.before(pg);
+    		pl = nl.list.before(pl);
+    	}
+    	
+		vg = pg.getValue() + carry;
+		vl = pl.getValue();
+		
+		if(vg < vl) {
+			carry = -1;
+			vg += 100000000;
+		} else {
+			carry = 0;
+		}
+		
+		retData[n++] = vg - vl;
+    	
+		if(!ng.list.isFirst(pg)) {
+			pg = ng.list.before(pg);
+			
+			while(!ng.list.isFirst(pg)) {
+				vg = pg.getValue() + carry;
+				
+				if(carry != 0) {
+					carry = 0;
+				}
+				
+				if(vg < 0) {
+					carry = -1;
+					vg = 99999999;
+				}
+				
+				retData[n++] = vg;
+				pg = ng.list.before(pg);
+			}
+			
+			vg = pg.getValue() + carry;
+			
+			if(carry != 0) {
+				carry = 0;
+			}
+			
+			retData[n++] = vg;
+		}
+		
+
+		
+		while(n > 0 && retData[n-1] == 0)
+			n--;
+		
+		LongInteger ret = new LongInteger();
+		
+		for(int i = n-1; i >= 0; i--) {
+			ret.list.insertLast(retData[i]);
+		}
+    	
+		ret.isNegative = ng.isNegative;
+		
+    	return ret;
+    }
+    
 //    
 //    /**
 //     * Multiplies the Long Integer by Long Integer i and returns the result as a new Long Integer
@@ -234,17 +328,19 @@ public class LongInteger {
         StringBuilder sb = new StringBuilder(getSign() ? "-" : "");
         
         Position p = list.first();
+        boolean wasLast = true;
         
         if(!list.isLast(p)) {
         	sb.append(String.format("%d", p.getValue()));
         	p = list.after(p);
+        	wasLast = false;
         }
         
         while(!list.isLast(p)) {
         	sb.append(String.format("%08d", p.getValue()));
         	p = list.after(p);
         }
-        sb.append(String.format("%08d", p.getValue()));
+        sb.append(String.format((wasLast ? "%d" : "%08d"), p.getValue()));
         
         return sb.toString();
     }
