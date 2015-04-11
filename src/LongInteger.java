@@ -140,6 +140,31 @@ public class LongInteger {
         return tn > in;
     }
     
+    public boolean greaterMag(LongInteger i) {
+        int tn = getDigitCount();
+        int in = i.getDigitCount();
+        
+        if(tn == in) {
+        	if(tn == 0) return false;
+        	
+        	Position tp = list.first();
+        	Position ip = i.list.first();
+        	
+        	while(true) {
+            	tn = tp.getValue();
+            	in = ip.getValue();
+            	
+            	if(tn == in) {
+            		tp = list.after(tp);
+            		ip = i.list.after(ip);
+            		continue;
+            	}
+        	}
+        }
+        
+        return tn > in;
+    }
+    
     /**
      * Adds the Long Integer to Long Integer i and returns the result as a new Long Integer. Must be implemented separately from subtract, but add and subtract can call each other when necessary.
      * @param i
@@ -149,9 +174,10 @@ public class LongInteger {
         
     	if(this.isNegative == i.isNegative)
     		return addSameSign(this, i);
-    	
-    	throw new NotImplementedException();
-
+    	else if(!this.greaterMag(i))
+    		return subGreaterFromLess(i, this);
+    	else
+    		return subGreaterFromLess(this, i);
     }
     
     private static LongInteger addSameSign(LongInteger ng, LongInteger nl) {
@@ -210,14 +236,26 @@ public class LongInteger {
      * @return
      */
     public LongInteger subtract(LongInteger i) {
-        return subGreaterFromLess(this, i);
+    	
+    	if(this.isNegative == i.isNegative) {
+        	if(this.greaterMag(i))
+        		return subGreaterFromLess(this, i);
+        	else {
+        		LongInteger ret = subGreaterFromLess(i, this);
+        		ret.isNegative = !ret.isNegative;
+        		return ret;
+        	}
+    	} else {
+    		LongInteger ret = addSameSign(this, i);
+    		ret.isNegative = this.isNegative;
+    		return ret;
+    	}
     }
     
     private static LongInteger subGreaterFromLess(LongInteger ng, LongInteger nl) {
     	
     	int n = 0;
     	int[] retData = new int[ng.list.size()];
-    	
     	
     	Position pg = ng.list.last();
     	Position pl = nl.list.last();

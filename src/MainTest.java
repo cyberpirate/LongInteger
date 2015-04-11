@@ -68,19 +68,18 @@ public class MainTest {
 	public static void testAdd() {
 		LongInteger li1, li2;
 		
-		li1 = new LongInteger("-999999999999999999999999999999999999999999999999");
+		li1 = new LongInteger("-100000000");
 //		li1 = new LongInteger("99999999");
 		li2 = new LongInteger("-1");
 		
-		li1.output();
 		li1.add(li2).output();
 	}
 	
 	public static void testSub() {
 		LongInteger li1, li2;
 		
-		li1 = new LongInteger("1000000001");
-		li2 = new LongInteger("1");
+		li1 = new LongInteger("-1");
+		li2 = new LongInteger("100000000");
 		
 		li1.subtract(li2).output();
 	}
