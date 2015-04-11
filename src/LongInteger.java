@@ -334,24 +334,98 @@ public class LongInteger {
     	return ret;
     }
     
-//    
-//    /**
-//     * Multiplies the Long Integer by Long Integer i and returns the result as a new Long Integer
-//     * @param i
-//     * @return
-//     */
-//    public LongInteger multiply(LongInteger i) {
-//        
-//    }
-//    
-//    /**
-//     * Raises the Long Integer to the power p (a regular integer) and returns the result as a new Long Integer. Note that no more than 2lg(p) calls to multiply are allowed.
-//     * @param p
-//     * @return
-//     */
-//    public LongInteger power(int p) {
-//        
-//    }
+    
+    /**
+     * Multiplies the Long Integer by Long Integer i and returns the result as a new Long Integer
+     * @param i
+     * @return
+     */
+    public LongInteger multiply(LongInteger b) {
+    	
+    	LongInteger a = this;
+    	LongInteger[] mult = new LongInteger[a.list.size()];
+    	
+    	Position ap = a.list.last();
+    	
+    	for(int i = 0; i < mult.length; i++) {
+    		
+    		mult[i] = new LongInteger();
+    		
+    		for(int j = 0; j < i; j++)
+    			mult[i].list.insertLast(0);
+    		
+    		Position bp = b.list.last();
+    		int carry = 0;
+    		int[] num;
+    		
+    		while(!b.list.isFirst(bp)) {
+    			
+    			num = singleKarat(ap.getValue(), bp.getValue());
+    			int val = num[1]+carry;
+    			
+    			num[0] += UtilityOperations.overflow(val);
+    			val = UtilityOperations.underflow(val);
+    			
+    			mult[i].list.insertFirst(val);
+    			carry = num[0];
+    			
+    			bp = b.list.before(bp);
+    		}
+    		
+			num = singleKarat(ap.getValue(), bp.getValue());
+			int val = num[1]+carry;
+			
+			num[0] += UtilityOperations.overflow(val);
+			val = UtilityOperations.underflow(val);
+			
+			mult[i].list.insertFirst(val);
+			
+			if(num[0] != 0)
+				mult[i].list.insertFirst(num[0]);
+    		
+    		ap = a.list.before(ap);
+    		
+    	}
+    	
+    	for(int i = 1; i < mult.length; i++) {
+    		mult[0] = mult[0].add(mult[i]);
+    	}
+    	
+    	mult[0].isNegative = a.isNegative != b.isNegative;
+    	
+    	return mult[0];
+    }
+    
+    public static int[] singleKarat(int a, int b) {
+    	int[] ret = new int[2];
+    	
+    	int a1 = UtilityOperations.upperHalf(a),
+    			a2 = UtilityOperations.lowerHalf(a),
+    			b1 = UtilityOperations.upperHalf(b),
+    			b2 = UtilityOperations.lowerHalf(b);
+    	
+    	int z1 = a1*b1, 
+    			z3 = a2*b2;
+    	
+    	int z2 = (a1 + a2)*(b1 + b2) - z3 - z1;
+    	
+    	ret[0] = z1 + UtilityOperations.upperHalf(z2) + UtilityOperations.overflow(z2)*10000;
+    	ret[1] = z3 + UtilityOperations.lowerHalf(z2)*10000;
+    	
+    	ret[0] += UtilityOperations.overflow(ret[1]);
+    	ret[1] = UtilityOperations.underflow(ret[1]);
+    	
+    	return ret;
+    }
+    
+    /**
+     * Raises the Long Integer to the power p (a regular integer) and returns the result as a new Long Integer. Note that no more than 2lg(p) calls to multiply are allowed.
+     * @param p
+     * @return
+     */
+    public LongInteger power(int p) {
+    	throw new NotImplementedException();
+    }
     
     public ProjectList getList() {
     	return list;

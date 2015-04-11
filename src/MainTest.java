@@ -14,7 +14,9 @@ public class MainTest {
 //		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
 		
 //		testAdd();
-		testSub();
+//		testSub();
+//		testKarat();
+		testMult();
 	}
 
 	public static void testDLL() {
@@ -93,5 +95,18 @@ public class MainTest {
 		}
 		
 		return sb.toString();
+	}
+	
+	public static void testKarat() {
+		System.out.println(arrToStr(LongInteger.singleKarat(99999999, 99999999)));
+	}
+	
+	public static void testMult() {
+		LongInteger li1, li2;
+		
+		li1 = new LongInteger("-199999999");
+		li2 = new LongInteger("100000000");
+		
+		li1.multiply(li2).output();
 	}
 }
