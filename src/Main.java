@@ -9,10 +9,28 @@ public class Main {
 	public static final int F = 5;
 	public static final int G = 6;
 	public static final int H = 7;
+	public static final int I = 8;
+	public static final int J = 9;
+	public static final int K = 10;
+	public static final int L = 11;
+	public static final int M = 12;
+	public static final int N = 13;
+	public static final int O = 14;
+	public static final int P = 15;
+	public static final int Q = 16;
+	public static final int R = 17;
+	public static final int S = 18;
+	public static final int T = 19;
+	public static final int U = 20;
+	public static final int V = 21;
+	public static final int W = 22;
+	public static final int X = 23;
+	public static final int Y = 24;
+	public static final int Z = 25;
 	public static LongInteger[] li;
 	
 	public static void main(String[] args) {
-		li = new LongInteger[8];
+		li = new LongInteger[26];
 		li[A] = new LongInteger("2222");
 		li[B] = new LongInteger("99999999");
 		li[C] = new LongInteger("-246813575732");
@@ -90,6 +108,31 @@ public class Main {
 				System.out.println(intToChar(i) + " - " + intToChar(j) + ": " + li[i].subtract(li[j]));
 				System.out.println(intToChar(i) + " * " + intToChar(j) + ": " + li[i].multiply(li[j]));
 			}
+		}
+		
+		System.out.println();
+		
+		li[I] = li[A].add(li[D]);
+		li[J] = li[B].add(li[C]);
+		li[K] = li[C].add(li[D]);
+		li[L] = li[I].add(li[I]);
+		li[M] = li[A].add(li[I]);
+		li[N] = li[B].add(li[K]);
+		li[O] = li[A].subtract(li[D]);
+		li[P] = li[C].subtract(li[D]);
+		li[Q] = li[D].subtract(li[C]);
+		li[R] = li[L].subtract(li[L]);
+		li[S] = li[P].subtract(li[O]);
+		li[T] = li[N].subtract(li[Q]);
+		li[U] = li[A].multiply(li[D]);
+		li[V] = li[B].multiply(li[C]);
+		li[W] = li[D].multiply(li[D]);
+		li[X] = li[O].multiply(li[I]);
+		li[Y] = li[J].multiply(li[P]);
+		li[Z] = li[M].multiply(li[N]);
+		
+		for(int i = I; i <= Z; i++) {
+			System.out.println(intToChar(i) + ": " + li[i]);
 		}
 	}
 
