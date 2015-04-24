@@ -20,14 +20,40 @@ public class MainTest {
 		
 //		System.out.println(UtilityOperations.lowerLog(2));
 		
-		LongInteger li = new LongInteger("2");
-		System.out.println(li.power(100));
+//		LongInteger li = new LongInteger("2");
+//		System.out.println(li.power(100));
+		testArray();
 	}
 
 	public static void testDLL() {
 		DLLProjectList dll = new DLLProjectList();
 		DLLProjectList dll1 = new DLLProjectList();
 		DLLProjectList dll2 = new DLLProjectList(testValues);
+		
+		for(int i = 0; i < testValues.length; i++) {
+			dll.insertLast(testValues[i]);
+		}
+		
+		for(int i = testValues.length-1; i >= 0; i--) {
+			dll1.insertFirst(testValues[i]);
+		}
+		
+		System.out.println("DLL Test:");
+		System.out.println("array:\t" + arrToStr(testValues));
+		System.out.println("dll:\t" + dll.toString());
+		System.out.println("dll1:\t" + dll1.toString());
+		System.out.println("dll2:\t" + dll2.toString());
+		System.out.println("length: " + testValues.length + " " + dll.size() + " " + dll1.size() + " " + dll2.size());
+		System.out.println(dll.isFirst(dll.first()));
+		System.out.println(!dll.isLast(dll.first()));
+		System.out.println(!dll.isFirst(dll.last()));
+		System.out.println(dll.isLast(dll.last()));
+	}
+	
+	public static void testArray() {
+		ProjectList dll = new ArrayProjectList();
+		ProjectList dll1 = new ArrayProjectList();
+		ProjectList dll2 = new ArrayProjectList(testValues);
 		
 		for(int i = 0; i < testValues.length; i++) {
 			dll.insertLast(testValues[i]);
