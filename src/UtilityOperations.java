@@ -56,4 +56,20 @@ public class UtilityOperations {
         return n;
     }
     
+    /**
+     * Returns the floor of log base 2
+     * @param t
+     * @return
+     */
+    public static int lowerLog(int t) {
+        int n = 0;
+        
+        t /= 2;
+        while(t > 0) {
+        	n++;
+        	t /= 2;
+        }
+        
+        return n;
+    }
 }

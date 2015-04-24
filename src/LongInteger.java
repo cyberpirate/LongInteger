@@ -424,7 +424,30 @@ public class LongInteger {
      * @return
      */
     public LongInteger power(int p) {
-    	throw new NotImplementedException();
+    	
+    	
+    	int[] logs = new int[UtilityOperations.lowerLog(p)+1];
+    	LongInteger[] parts = new LongInteger[logs.length];
+    	LongInteger ret = new LongInteger("1");
+    	
+    	logs[0] = 1;
+    	parts[0] = this;
+    	
+    	for(int i = 1; i < logs.length; i++) {
+    		logs[i] = 2*logs[i-1];
+    		parts[i] = parts[i-1].multiply(parts[i-1]);
+    	}
+    	
+    	for(int i = logs.length-1; i >= 0; i--) {
+    		if(p >= logs[i]) {
+    			p -= logs[i];
+    			ret = ret.multiply(parts[i]);
+    		}
+    		if(p == 0)
+    			break;
+    	}
+    	
+    	return ret;
     }
     
     public ProjectList getList() {

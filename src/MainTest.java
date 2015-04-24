@@ -14,9 +14,14 @@ public class MainTest {
 //		testLongInteger("12112321123432112345432112345654321", "121123211234321123454321");
 		
 //		testAdd();
-		testSub();
+//		testSub();
 //		testKarat();
 //		testMult();
+		
+//		System.out.println(UtilityOperations.lowerLog(2));
+		
+		LongInteger li = new LongInteger("2");
+		System.out.println(li.power(100));
 	}
 
 	public static void testDLL() {
