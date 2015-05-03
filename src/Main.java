@@ -30,6 +30,40 @@ public class Main {
 	public static LongInteger[] li;
 	
 	public static void main(String[] args) {
+		
+		
+		LongInteger.listType = DLLProjectList.class;
+		TestResults dllRes = runTests();
+		
+		System.out.println();
+		
+		LongInteger.listType = ArrayProjectList.class;
+		TestResults arrRes = runTests();
+		
+		System.out.println();
+		
+		LongInteger.listType = SLLProjectList.class;
+		TestResults sllRes = runTests();
+		
+		int colLen = 11;
+		int colNum = 9;
+		String row = "%3s";
+		
+		for(int i = 1; i < colNum; i++) {
+			row += " | %" + colLen + "s";
+		}
+		row += "\n";
+		
+		System.out.println();
+		
+		System.out.printf(row, "", "equals", "lessThan", "greaterThan", "add", "subtract", "multiply", "power", "total");
+		System.out.printf(row, "DLL", dllRes.equals, dllRes.lessThan, dllRes.greaterThan, dllRes.add, dllRes.subtract, dllRes.multiply, dllRes.power, dllRes.total);
+		System.out.printf(row, "ARR", arrRes.equals, arrRes.lessThan, arrRes.greaterThan, arrRes.add, arrRes.subtract, arrRes.multiply, arrRes.power, arrRes.total);
+		System.out.printf(row, "SLL", sllRes.equals, sllRes.lessThan, sllRes.greaterThan, sllRes.add, sllRes.subtract, sllRes.multiply, sllRes.power, sllRes.total);
+	}
+	
+	public static TestResults runTests() {
+		
 		li = new LongInteger[26];
 		li[A] = new LongInteger("2222");
 		li[B] = new LongInteger("99999999");
@@ -92,23 +126,59 @@ public class Main {
 		
 		System.out.println();
 		
+		TestResults ret = new TestResults();
+		long s;
+		long start = System.nanoTime();
+		
+		s = System.nanoTime();
 		for(int i = 0; i < H; i++) {
 			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " = " + intToChar(j) + ": " + li[i].equals(li[j]));
+			}
+		}
+		ret.equals = System.nanoTime() - s;
+		
+		s = System.nanoTime();
+		for(int i = 0; i < H; i++) {
+			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " < " + intToChar(j) + ": " + li[i].lessThan(li[j]));
+			}
+		}
+		ret.lessThan = System.nanoTime() - s;
+		
+		s = System.nanoTime();
+		for(int i = 0; i < H; i++) {
+			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " > " + intToChar(j) + ": " + li[i].greaterThan(li[j]));
 			}
 		}
+		ret.greaterThan = System.nanoTime() - s;
 		
 		System.out.println();
 		
+		s = System.nanoTime();
 		for(int i = 0; i < H; i++) {
-			for(int j = 0; j < H+1; j++) {
+			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " + " + intToChar(j) + ": " + li[i].add(li[j]));
+			}
+		}
+		ret.add = System.nanoTime() - s;
+		
+		s = System.nanoTime();
+		for(int i = 0; i < H; i++) {
+			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " - " + intToChar(j) + ": " + li[i].subtract(li[j]));
+			}
+		}
+		ret.subtract = System.nanoTime() - s;
+		
+		s = System.nanoTime();
+		for(int i = 0; i < H; i++) {
+			for(int j = i+1; j < H+1; j++) {
 				System.out.println(intToChar(i) + " * " + intToChar(j) + ": " + li[i].multiply(li[j]));
 			}
 		}
+		ret.multiply = System.nanoTime() - s;
 		
 		System.out.println();
 		
@@ -134,6 +204,21 @@ public class Main {
 		for(int i = I; i <= Z; i++) {
 			System.out.println(intToChar(i) + ": " + li[i]);
 		}
+		
+		System.out.println();
+		
+		int[] powers = new int[]{2, 5, 10, 25};
+		s = System.nanoTime();
+		for(int p : powers) {
+			for(int i = A; i <= H; i++) {
+				System.out.println(intToChar(i) + " ^ " + p + ": " + li[i].power(p));
+			}
+		}
+		ret.power = System.nanoTime() - s;
+		
+		ret.total = System.nanoTime() - start;
+		
+		return ret;
 	}
 
 	public static void printList(LongInteger li) {
@@ -159,5 +244,9 @@ public class Main {
 	
 	public static char intToChar(int i) {
 		return (char) (65 + i);
+	}
+
+	public static class TestResults {
+		public long equals, lessThan, greaterThan, add, subtract, multiply, power, total;
 	}
 }

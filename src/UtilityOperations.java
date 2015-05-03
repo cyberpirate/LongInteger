@@ -57,6 +57,22 @@ public class UtilityOperations {
     }
     
     /**
+     * Returns the number of digits in regular integer t as an integer
+     * @param t
+     * @return
+     */
+    public static int digits(long t) {
+        int n = 0;
+        
+        while(t > 0) {
+        	n++;
+        	t /= 10;
+        }
+        
+        return n;
+    }
+    
+    /**
      * Returns the floor of log base 2
      * @param t
      * @return

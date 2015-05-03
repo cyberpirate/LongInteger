@@ -1,18 +1,30 @@
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class LongInteger {
     
 	// DO NOT CHANGE OR REMOVE THIS LINE (UNTIL STEP 3)
-    private ProjectList list = new DLLProjectList();
+    private ProjectList list = null;
 	
+    public static Class<? extends ProjectList<? extends Position>> listType = DLLProjectList.class;
+    
     private boolean isNegative = false;
+    
+    public LongInteger() {
+    	try {
+			list = listType.newInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
     
     /**
      * Initializes a new Long Integer which represents the number in String s. String s is in the format: [-?][1-9][0-9]*
      * @param s
      */
     public LongInteger(String s) {
-        
+    	this();
+        init(s);
+    }
+    
+    private void init(String s) {
     	if(s.charAt(0) == '-') {
     		isNegative = true;
     		s = s.substring(1, s.length());
@@ -25,10 +37,6 @@ public class LongInteger {
     		
     		list.insertFirst(value);
     	}
-    }
-
-    public LongInteger() {
-    	
     }
     
     /**
@@ -383,7 +391,8 @@ public class LongInteger {
 			if(num[0] != 0)
 				mult[i].list.insertFirst(num[0]);
     		
-    		ap = a.list.before(ap);
+			if(!a.list.isFirst(ap))
+				ap = a.list.before(ap);
     		
     	}
     	
@@ -425,6 +434,7 @@ public class LongInteger {
      */
     public LongInteger power(int p) {
     	
+    	if(p < 0) return new LongInteger("0");
     	
     	int[] logs = new int[UtilityOperations.lowerLog(p)+1];
     	LongInteger[] parts = new LongInteger[logs.length];
